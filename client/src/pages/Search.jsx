@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ListingItem from '../components/ListingItem';
-
+import '../styles/home.css'
 export default function Search() {
   const navigate = useNavigate();
   const [sidebardata, setSidebardata] = useState({
@@ -128,24 +128,24 @@ export default function Search() {
     setListings([...listings, ...data]);
   };
   return (
-    <div className='flex flex-col md:flex-row'>
-      <div className='p-7  border-b-2 md:border-r-2 md:min-h-screen'>
-        <form onSubmit={handleSubmit} className='flex flex-col gap-8'>
-          <div className='flex items-center gap-2'>
-            <label className='whitespace-nowrap font-semibold'>
-              Search Term:
-            </label>
-            <input
-              type='text'
-              id='searchTerm'
-              placeholder='Search...'
-              className='border rounded-lg p-3 w-full'
-              value={sidebardata.searchTerm}
-              onChange={handleChange}
-            />
-          </div>
-          <div className='flex gap-2 flex-wrap items-center'>
-            <label className='font-semibold'>Type:</label>
+    <div className='search flex flex-col md:flex-row'>
+    <div className='p-7  border-b-2 md:border-r-2 md:min-h-screen'>
+      <form onSubmit={handleSubmit} className='flex flex-col gap-8'>
+        <div className='flex items-center gap-2'>
+          <label className='whitespace-nowrap font-semibold'>
+            Search Term:
+          </label>
+          <input
+            type='text'
+            id='searchTerm'
+            placeholder='Search...'
+            className='search-term border rounded-lg p-3 w-full'
+            value={sidebardata.searchTerm}
+            onChange={handleChange}
+          />
+        </div>
+        <div className='flex gap-2 flex-wrap items-center'>
+          <label className='font-semibold'>Type:</label>
             {/* <div className='flex gap-2'>
               <input
                 type='checkbox'
@@ -156,7 +156,7 @@ export default function Search() {
               />
               <span>NGO</span>
             </div> */}
-            <div className='flex gap-2'>
+           <div className='flex gap-2'>
               <input
                 type='checkbox'
                 id='rent'
@@ -216,7 +216,7 @@ export default function Search() {
               onChange={handleChange}
               defaultValue={'created_at_desc'}
               id='sort_order'
-              className='border rounded-lg p-3'
+              className='sort border rounded-lg p-3'
             >
               <option value='regularPrice_desc'>Price high to low</option>
               <option value='regularPrice_asc'>Price low to hight</option>
@@ -224,7 +224,7 @@ export default function Search() {
               <option value='createdAt_asc'>Oldest</option>
             </select>
           </div>
-          <button className='bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95'>
+          <button className='search-btn bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95'>
             Search
           </button>
         </form>
