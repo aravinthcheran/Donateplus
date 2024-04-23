@@ -1,0 +1,46 @@
+/* styles.css */
+
+/* Animation for blinking text */
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.animate-blink {
+  animation: blink 1.5s infinite;
+}
+
+
+
+.fluid-animation {
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  right: -20px;
+  bottom: -20px;
+  border: 2px solid transparent;
+  border-radius: 20px;
+  animation: fluid-flow 5s linear infinite;
+}
+
+@keyframes fluid-flow {
+  0% {
+    border-color: #4FD1C5;
+    transform: scale(1);
+  }
+  50% {
+    border-color: #A78BFA;
+    transform: scale(1.05);
+  }
+  100% {
+    border-color: #F87171;
+    transform: scale(1);
+  }
+}
