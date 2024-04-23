@@ -38,7 +38,7 @@ export default function ListingItem({ listing }) {
             {listing.type === 'rent' && ' / month'}
           </p> */}
             <div className='bottom-card text-slate-700 flex gap-4'>
-            <div className='font-bold text-xs'>
+            {/* <div className='font-bold text-xs'>
               {listing.bedrooms > 1
                 ? `${listing.bedrooms} beds `
                 : `${listing.bedrooms} bed `}
@@ -47,7 +47,7 @@ export default function ListingItem({ listing }) {
               {listing.bathrooms > 1
                 ? `${listing.bathrooms} baths `
                 : `${listing.bathrooms} bath `}
-            </div>
+            </div> */}
           </div>
         </div>
       </Link>
