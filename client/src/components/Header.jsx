@@ -2,7 +2,7 @@ import { FaSearch } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-import '../styles/home.css'
+import '../styles/home.css';
 
 export default function Header() {
   const { currentUser } = useSelector((state) => state.user);
@@ -26,61 +26,50 @@ export default function Header() {
   }, [location.search]);
 
   return (
-    <header className='header bg-sky-100 shadow-md'>
-      <div className='header2 max-w-full mx-auto'>
-        <div className='header2 flex justify-between items-center max-w-6xl mx-auto p-3'>
-          <Link to='/'>
-            <h1 className='header3 font-bold text-sm sm:text-2xl ml-0'>
-              <span className='web-app-name text-blue-800'>Donate</span>
-              <span className='web-app-name text-slate-700'>+</span>
-            </h1>
+    <header className='bg-white shadow-lg'>
+      <div className='container mx-auto px-4 py-3 flex justify-between items-center'>
+        <Link to='/' className='text-3xl font-bold text-indigo-700 tracking-wide'>
+          <span className='text-purple-600'>Donate</span>
+          <span className='text-indigo-800'>+</span>
+        </Link>
+        
+        <form onSubmit={handleSubmit} className='relative flex items-center'>
+          <input
+            type='text'
+            placeholder='Search...'
+            className='bg-gray-100 px-4 py-2 rounded-full shadow-sm focus:outline-none w-32 sm:w-64 focus:ring-2 focus:ring-indigo-300 transition-all duration-200'
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+          <button type='submit' className='absolute right-2'>
+            <FaSearch className='text-indigo-600' />
+          </button>
+        </form>
+
+        <nav className='flex items-center gap-6'>
+          <Link to='/' className='text-lg font-medium text-gray-700 hover:text-indigo-600 transition-colors'>
+            Home
           </Link>
-          <form
-            onSubmit={handleSubmit}
-            className='bg-slate-100 p-3 rounded-lg flex items-center'
-          >
-            <input
-              type='text'
-              placeholder='Search...'
-              className='bg-transparent focus:outline-none w-24 sm:w-64'
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
-            <button>
-              <FaSearch className='text-slate-600' />
-            </button>
-          </form>
-          <ul className='navv flex gap-4 navbar'>
-            <Link to='/' className='home'>
-              <li className='home '>
-                Home
-              </li>
-            </Link>
-            <Link to='/about' className='about'>
-              <li className='about '>
-                About
-              </li>
-            </Link>
-            <Link to='/profile' className='about'>
-              <li className='about '>
-                profile
-              </li>
-            </Link>
-            <Link to='/profile'>
-              {currentUser ? (
-                <img
-                  className='rounded-full h-7 w-7 object-cover'
-                  src={currentUser.avatar}
-                  alt='profile'
-                />
-              ) : (
-                <li className='signin text-slate-700 hover:underline'>
-                  Sign in
-                </li>
-              )}
-            </Link>
-          </ul>
-        </div>
+          <Link to='/about' className='text-lg font-medium text-gray-700 hover:text-indigo-600 transition-colors'>
+            About
+          </Link>
+          <Link to='/profile' className='text-lg font-medium text-gray-700 hover:text-indigo-600 transition-colors'>
+            Profile
+          </Link>
+          <Link to='/profile'>
+            {currentUser ? (
+              <img
+                className='rounded-full h-8 w-8 object-cover shadow-md hover:scale-105 transition-transform'
+                src={currentUser.avatar}
+                alt='Profile'
+              />
+            ) : (
+              <span className='text-lg font-medium text-indigo-600 hover:underline'>
+                Sign in
+              </span>
+            )}
+          </Link>
+        </nav>
       </div>
     </header>
   );
