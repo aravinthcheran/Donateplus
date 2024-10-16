@@ -1,7 +1,8 @@
+
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ListingItem from '../components/ListingItem';
-import '../styles/home.css';
+import '../styles/home.css'; // Ensure to update this file to match the new design
 
 export default function Search() {
   const navigate = useNavigate();
@@ -35,7 +36,7 @@ export default function Search() {
       setSidebardata({
         searchTerm: searchTermFromUrl || '',
         type: typeFromUrl || 'all',
-        trust: trustFromUrl === 'true' ? true : false,
+        trust: trustFromUrl === 'true',
         sort: sortFromUrl || 'created_at',
         order: orderFromUrl || 'desc',
       });
@@ -49,8 +50,6 @@ export default function Search() {
       const data = await res.json();
       if (data.length > 8) {
         setShowMore(true);
-      } else {
-        setShowMore(false);
       }
       setListings(data);
       setLoading(false);
@@ -100,18 +99,17 @@ export default function Search() {
   };
 
   return (
-    <div className='search flex flex-col md:flex-row'>
-      <div className='p-7 border-b-2 md:border-r-2 md:min-h-screen'>
-        <form onSubmit={handleSubmit} className='flex flex-col gap-8'>
+    <div className='search flex flex-col md:flex-row bg-gray-100 min-h-screen'>
+      <div className='sidebar p-7 bg-white border-r-2 md:min-h-screen shadow-md rounded-lg'>
+        <form onSubmit={handleSubmit} className='flex flex-col gap-6'>
+          <h2 className='text-xl font-bold text-center'>Search Listings</h2>
           <div className='flex items-center gap-2'>
-            <label className='whitespace-nowrap font-semibold'>
-              Search Term:
-            </label>
+            <label className='font-semibold'>Search Term:</label>
             <input
               type='text'
               id='searchTerm'
-              placeholder='Search...'
-              className='search-term border rounded-lg p-3 w-full'
+              placeholder='Enter keywords...'
+              className='border rounded-lg p-3 w-full focus:outline-none focus:ring-2 focus:ring-blue-500'
               value={sidebardata.searchTerm}
               onChange={handleChange}
             />
@@ -122,7 +120,7 @@ export default function Search() {
               id='type'
               value={sidebardata.type}
               onChange={handleChange}
-              className='type-select border rounded-lg p-3'
+              className='border rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500'
             >
               <option value='all'>All</option>
               <option value='rent'>Individual</option>
@@ -135,54 +133,49 @@ export default function Search() {
               id='trust'
               onChange={handleChange}
               checked={sidebardata.trust}
+              className='focus:ring-2 focus:ring-blue-500'
             />
-            <label className='font-semibold'>Trust</label>
+            <label className='font-semibold'>Trusted Listings</label>
           </div>
           <div className='flex items-center gap-2'>
-            <label className='font-semibold'>Sort:</label>
+            <label className='font-semibold'>Sort By:</label>
             <select
               onChange={handleChange}
               defaultValue={'created_at_desc'}
               id='sort_order'
-              className='sort border rounded-lg p-3'
+              className='border rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500'
             >
-              <option value='regularPrice_desc'>Price high to low</option>
-              <option value='regularPrice_asc'>Price low to high</option>
+              <option value='regularPrice_desc'>Price: High to Low</option>
+              <option value='regularPrice_asc'>Price: Low to High</option>
               <option value='createdAt_desc'>Latest</option>
               <option value='createdAt_asc'>Oldest</option>
             </select>
           </div>
-          <button className='search-btn bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95'>
+          <button className='bg-purple-600 text-white p-3 rounded-lg uppercase hover:bg-blue-700 transition-all duration-300'>
             Search
           </button>
         </form>
       </div>
-      <div className='flex-1'>
-        <h1 className='text-3xl font-semibold border-b p-3 text-slate-700 mt-5'>
-          Listing results:
+      <div className='results flex-1 p-5'>
+        <h1 className='text-2xl font-semibold text-gray-700 mb-5'>
+          Listing Results:
         </h1>
-        <div className='p-7 flex flex-wrap gap-4'>
+        <div className='flex flex-wrap gap-4'>
           {!loading && listings.length === 0 && (
-            <p className='text-xl text-slate-700'>No listing found!</p>
+            <p className='text-lg text-gray-500'>No listings found!</p>
           )}
           {loading && (
-            <p className='text-xl text-slate-700 text-center w-full'>
-              Loading...
-            </p>
+            <p className='text-lg text-gray-500 text-center w-full'>Loading...</p>
           )}
-
-          {!loading &&
-            listings &&
-            listings.map((listing) => (
-              <ListingItem key={listing._id} listing={listing} />
-            ))}
-
+          {!loading && listings.map((listing) => (
+            <ListingItem key={listing._id} listing={listing} />
+          ))}
           {showMore && (
             <button
               onClick={onShowMoreClick}
-              className='text-green-700 hover:underline p-7 text-center w-full'
+              className='text-blue-600 hover:underline p-4 text-center w-full'
             >
-              Show more
+              Show More
             </button>
           )}
         </div>
