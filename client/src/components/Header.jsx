@@ -53,8 +53,8 @@ export default function Header() {
           <Link to='/about' className='text-lg font-medium text-gray-700 hover:text-indigo-600 transition-colors'>
             About
           </Link>
-          <Link to='/profile' className='text-lg font-medium text-gray-700 hover:text-indigo-600 transition-colors'>
-            Profile
+          <Link to='/sign-in' className='text-lg font-medium text-gray-700 hover:text-indigo-600 transition-colors'>
+            Sign In
           </Link>
           <Link to='/profile'>
             {currentUser ? (
